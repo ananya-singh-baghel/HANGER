@@ -6,5 +6,4 @@ HANGAR is an open source scientific paper publisher cum editor web-application a
 educators and engineers! 
 
 
-
 ![WhatsApp Image 2022-09-07 at 6 56 2](https://user-images.githubusercontent.com/76189053/222558254-16e17a61-3215-44e4-a025-07e313cc2f54.png)

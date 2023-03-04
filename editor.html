@@ -1,0 +1,998 @@
+<title>Text Editor</title>
+
+<body style="width: 91%; height: 90%; background-color:#E2DFDF;" onload="init(); imageX();">
+<style>
+
+.topnav {
+   
+   overflow: hidden;
+   width:100%;
+   background-color: #FFF;
+   
+}
+.navbar {
+            display: flex;
+}
+</style>
+
+<div class="topnav" style="width:1427px; height:220px; padding-bottom:7px; border:0.5px solid black;">
+<var id="color"></var>
+<var id="back"></var>
+<var id="scheme"></var>
+<var id="justify"></var>
+<var id="bolden"></var>
+<var id="size"></var>
+<var id="font"></var>
+
+
+
+<div class="navbar" style="background-color:#A95E5E">
+			<div class="nav-col-logo" style="width:20%;margin-top: 3rem;">
+				<a href="profile.html"> <!-- <img src="finallogo.png" alt="Logo" style="width: 200px; margin-left: 3rem;">//--></a> 
+			</div>
+
+			<div class="nav-col-input" style="width:80%;margin-top: 2rem;">
+				<form id="searchForm" >
+					<input type="search" placeholder="Search" id="search" style="text-align: left;  font-size:1.5rem; font-family:Arial; line-height:1.4; width:70%;height:20px;margin:4rem; margin-top: 1.5rem; margin-left: 4.7rem; padding:1rem; border:1px solid black; border-radius:5px; background-color: white; "/>
+				</form>
+			</div>
+
+			<div class="nav-col-img">
+				<a href="profile.html"><i class="fa fa-user" ></i></a>
+			</div>
+</div>
+
+<div class="nav" style="width:1427px; padding-top:10px; padding-bottom:3px;">
+
+
+<select onchange="selection()";  style="font-size:1.5rem; margin-top:2px; margin-right:1.1rem; float:right;" name="ab" id="FNT-TYP">
+    <option value="1"; onfocus="Arial()"; style="font-family:Arial;" >Arial</option>
+    <option value="2"; onfocus="Lucida()" style="font-family:Lucida Console;">Lucida Console</option>
+    <option value="3"; onfocus="Times()" style="font-family:Times New Roman;">Times New Roman</option>
+    <option value="4"; onfocus="Trebuchet()" style="font-family:Trebuchet MS;">Trebuchet MS</option>
+    <option value="5"; onfocus="MSsans()" style="font-family:Microsoft Sans Serif;">MS Sans Serif</option>
+    <option value="6"; onfocus="Tahoma()" style="font-family:Tahoma;">Tahoma</option>
+    <option value="7"; onfocus="Georgia()" style="font-family:Georgia;">Georgia</option>
+    <option value="8"; onfocus="Comicsans()" style="font-family:Comic Sans MS;">Comic Sans MS</option>
+    <option value="9"; onfocus="SegoeWP()" style="font-family:Segoe WP;">Segoe WP</option>
+    <option value="10"; onfocus="SegoeScript()" style="font-family:Segoe Script;">Segoe Script</option>    
+    <option value="11"; onfocus="RedAlert()" style="font-family:Red Alert Extended;">Red Alert Extended</option>
+    <option value="12"; onfocus="Impact()" style="font-family:Impact;">Impact</option>
+    <option value="13"; onfocus="UbuntuL()" style="font-family:Ubuntu; font-weight: 100;">Ubuntu Light</option>
+    <option value="14"; onfocus="UbuntuR()" style="font-family:Ubuntu; font-weight: 400;">Ubuntu Regular</option>   
+    <option value="15"; onfocus="UbuntuM()" style="font-family:Ubuntu; font-weight: 500;">Ubuntu Medium</option>
+    <option value="16"; onfocus="UbuntuB()" style="font-family:Ubuntu; font-weight: 900;">Ubuntu Bold</option>      
+</select>
+
+
+<select onchange="justify()";  style="font-size:1.5rem; margin-top:2px; margin-right: 1.1rem; float: right;" name="cd" id="TXT-JST">
+    <option value="1";  onfocus="Left()"; style="font-family:Arial;" >Left</option>
+    <option value="2"; onfocus="Center()" style="font-family:Arial;">Center</option>
+    <option value="3"; onfocus="Right()" style="font-family:Arial;">Right</option>
+    <option value="4"; onfocus="Justify()" style="font-family:Arial;">Justify</option>
+</select>
+
+<select onchange="titleCase()";  style="font-size:1.5rem; margin-top:2px; margin-right: 1.1rem; float: right;" name="gh" id="TXT-JST">
+    <option value="1";  onfocus="None()"; style="font-family:Arial;">DefaultCase</option>
+    <option value="2"; onfocus="titleCase()" style="font-family:Arial;"> TitleCase </option>
+     <option value="2"; onfocus="titleCase()" style="font-family:Arial;"> Uppercase </option>
+     <option value="2"; onfocus="titleCase()" style="font-family:Arial;"> Lowercase </option>
+</select>
+
+<select onchange="bolden()";  style="font-size:1.5rem; margin-top:2px; margin-right: 1.1rem; float: right;" name="gh" id="TXT-BLD">
+    <option value="1";  onfocus="Regular()"; style="font-family:Arial;  font-weight: normal;" >Normal</option>
+    <option value="2"; onfocus="Bold()"; style="font-family:Arial; font-weight: bold;"  >Bold</option>
+    <option value="3"; onfocus="italic()"; style="font-family:Arial; font-weight: italic;">Italic</option>
+
+</select>
+
+<select onchange="mark()";  style="font-size:1.5rem; margin-top:2px; margin-right: 1.1rem; float: right;" name="gh" id="TXT-JST">
+    <option value="1";  onfocus="None()"; style="font-family:Arial;">Unmark</option>
+    <option value="2"; onfocus="Mark()" style="font-family:Arial;">Mark</option>
+
+</select>
+
+
+<select onchange="sizing()"; style="font-size:1.5rem; margin-top:2px; margin-right: 1.1rem; float: right;" name="ef" id="TXT-SZE">
+    <option selected value="1";  onfocus="Def()"; style="font-family:Arial; font-size:2rem;">Size</option>
+    <option value="1";  onfocus="10()"; style="font-family:Arial; font-size:10;" >10</option>
+    <option value="2"; onfocus="12()" style="font-family:Arial; font-size:12;">12</option>
+    <option value="3"; onfocus="14()" style="font-family:Arial; font-size:14;">14</option>
+    <option value="4"; onfocus="16()" style="font-family:Arial; font-size:16;">16</option>
+    <option value="4"; onfocus="18()" style="font-family:Arial; font-size:18;">18</option>
+    <option value="6"; onfocus="22()" style="font-family:Arial; font-size:22;">22</option>
+    <option value="7"; onfocus="24()" style="font-family:Arial; font-size:24;">24</option>
+    <option value="8"; onfocus="26()" style="font-family:Arial; font-size:26;">26</option>
+    <option value="9"; onfocus="28()" style="font-family:Arial; font-size:28;">28</option>
+    <option value="10"; onfocus="30()" style="font-family:Arial; font-size:30;">30</option> 
+    <option value="11"; onfocus="32()" style="font-family:Arial; font-size:32;">32</option>
+    <option value="12"; onfocus="34()" style="font-family:Arial; font-size:34;">34</option>
+    <option value="13"; onfocus="36()" style="font-family:Arial; font-size:36;">36</option>
+    <option value="14"; onfocus="38()" style="font-family:Arial; font-size:38;">38</option>
+    <option value="15"; onfocus="40()" style="font-family:Arial; font-size:40;">40</option>
+    <option value="15"; onfocus="42()" style="font-family:Arial; font-size:42;">42</option>
+    <option value="15"; onfocus="44()" style="font-family:Arial; font-size:44;">44</option>
+    <option value="15"; onfocus="46()" style="font-family:Arial; font-size:46;">46</option>
+    <option value="15"; onfocus="48()" style="font-family:Arial; font-size:48;">48</option>
+    <option value="15"; onfocus="50()" style="font-family:Arial; font-size:50;">50</option>
+</select> 
+</td>
+</div></div>
+
+<script>
+function justify () {
+var x = document.getElementById("TXT-JST").selectedIndex;
+var y = document.getElementById("TXT-JST").options;
+document.getElementById("content").style.textAlign = ( y[x].text);
+}
+</script>
+
+<script>
+function bolden () {
+var x = document.getElementById("TXT-BLD").selectedIndex;
+var y = document.getElementById("TXT-BLD").options;
+document.getElementById("content").style.fontWeight= ( y[x].text);
+}
+</script>
+
+<script>
+function mark () {
+var x = document.getElementById("TXT-MARK").selectedIndex;
+var y = document.getElementById("TXT-MARK").options;
+document.getElementById("content").style.highlightElement= ( y[x].text);
+}
+</script>
+
+<script>
+function titleCase(str) {
+var x = document.getElementById("TXT-MARK").selectedIndex;
+var y = document.getElementById("TXT-MARK").options;
+    return str
+        .split(' ')
+        .map((word) => word[0].toUpperCase() + word.slice(1).toLowerCase())
+        .join(' ');
+document.getElementById("content").style.fontWeight = ( y[x].text);
+}
+</script>
+
+<script>
+function sizing () {
+var x = document.getElementById("TXT-SZE").selectedIndex;
+var y = document.getElementById("TXT-SZE").options;
+document.getElementById("content").style.fontSize = ( y[x].text);
+}
+</script>
+
+<script>
+function selection () {
+var x = document.getElementById("FNT-TYP").selectedIndex;
+var y = document.getElementById("FNT-TYP").options;
+document.getElementById("content").style.fontFamily = ( y[x].text);
+document.getElementById("title").style.fontFamily = ( y[x].text);
+
+var weight = ( y[x].text);
+
+if (y[x].value == 13) {
+document.getElementById("content").style.fontWeight = '100';
+document.getElementById("title").style.fontWeight = '100';
+document.getElementById("content").style.fontFamily = 'Ubuntu';
+document.getElementById("title").style.fontFamily = 'Ubuntu';
+}
+else if (y[x].value == 14) {
+document.getElementById("content").style.fontWeight = '400';
+document.getElementById("title").style.fontWeight = '400';
+document.getElementById("content").style.fontFamily = 'Ubuntu';
+document.getElementById("title").style.fontFamily = 'Ubuntu';
+}
+else if (y[x].value == 15) {
+document.getElementById("content").style.fontWeight = '500';
+document.getElementById("title").style.fontWeight = '500';
+document.getElementById("content").style.fontFamily = 'Ubuntu';
+document.getElementById("title").style.fontFamily = 'Ubuntu';
+}
+else if (y[x].value == 16) {
+document.getElementById("content").style.fontWeight = '900';
+document.getElementById("title").style.fontWeight = '900';
+document.getElementById("content").style.fontFamily = 'Ubuntu';
+document.getElementById("title").style.fontFamily = 'Ubuntu';
+}
+}
+</script>
+
+</div>
+</nav>
+
+<br><BR><br/>
+<input id="title" style="text-align: center; background-color: white;box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;font-size:2rem;font-family:Arial;line-height:0.5;width:100%;margin:4rem; margin-top: 1rem; margin-left: 4.7rem; padding:1rem; border:0.7px solid black;border-radius:2px;" onfocusout="myFunction()"; placeholder="DOCUMENT TITLE GOES HERE...">
+</input>
+
+<br />
+<div style="width: 105%; margin-top: -50px; margin-bottom: -50px;">
+<center>
+</center>
+</div>
+
+<script> 
+function myFunction() 
+{
+    document.title = document.getElementById("title").value;
+}
+</script>
+<div>
+
+<textarea id="content";  style="height: 180vh; font-size:2rem;font-family:Arial;line-height:1.4;width:100%;margin:4rem; margin-left: 4.7rem; margin-top: 2rem; padding:2rem; border:0.5px solid black; border-radius:0px; resize: none; background-color: white;box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;"  wrap="hard"; white-space: pre-wrap; placeholder="DOCUMENT TEXT...">
+</textarea>
+
+<textarea id="text"; style="height: 65vh; font-size:2rem;font-family:Arial;line-height:1.4;width:100%;margin:4rem; margin-top: 2rem; padding:2rem;border:3px solid black;border-radius:0px; resize: none; overflow:hidden; display: none; background-color: white;" placeholder="DOCUMENT TEXT GOES HERE..." onload="init();">
+</textarea>
+
+
+<textarea readonly id="DocInfo"; style= "overflow: hidden; background-color: rgba(255, 255, 255, 1); height: 0.5vh !important; font-size:2rem;font-family:Arial; line-height:0; width:100%; margin:4rem; margin-top: -4.2rem;  margin-left: 4.7rem; padding:1.2rem; border:2px solid black; border-radius:0px; resize: none; x=-688"  white-space: pre-wrap; placeholder="">
+</textarea>
+
+
+
+<div>
+
+<button id="CloseT" type="button" style="position: absolute; font-size:2em; padding-left: 4px; padding-top: 1px; font-family:Arial; left: 75.5%; float: left; vertical-align: middle; bottom: 69.4%; vertical-align:top; display: block;
+  margin-top: 10%; display: none;
+  width: 2.5%; height: 53px;
+  -o-transform:rotate(90deg); /* O" onclick="closeT()">X</button>
+
+
+<div id="overlayzee" style="top: 25%; left: 25%; position: absolute; width:50%; height:50%; display: none;" >
+  <div>
+      <iframe id="dictionary" overflow-x="hidden" style="display: none" src="http://www.dictionary.com" height="560" width="100%" onLoad="dictionary.scrollTo(0,370)"></iframe>
+  </div>
+ </div>
+
+</body>
+
+</div>
+
+<div>
+
+<button id="CloseD" type="button" style="position: absolute; font-size:2em; padding-left: 4px; padding-top: 1px; font-family:Arial; left: 75.5%; float: left; vertical-align: middle; bottom: 69.4%; vertical-align:top; display: block;
+  margin-top: 10%; display: none;
+  width: 2.5%; height: 53px;
+  -o-transform:rotate(90deg); /* O" onclick="closeD()">X</button>
+
+
+<button id="CatchIt" type="button" style="position: absolute; font-size:2em; padding-left: 2px; padding-top: 7px; font-family:Arial; left: -5.8%; float: left; vertical-align: middle; bottom: -5%; vertical-align:top; display: block;
+  margin-top: 10%;
+  width: 15.5%; height: 53px;
+  transform:rotate(7deg);
+  -ms-transform:rotate(90deg); /* IE 9 */
+  -moz-transform:rotate(90deg); /* Firefox */
+  -webkit-transform:rotate(90deg); /* Safari and Chrome */
+  -o-transform:rotate(90deg); /* O" onclick="getSelectedText()
+">Thesaurus</button>
+
+<button id="CatchItToo" type="button" style="position: absolute; font-size:2em; padding-left: 2px; padding-top: 7px; font-family:Arial; left: -5.8%; float: left; vertical-align: middle; bottom:23.5%; vertical-align:top; display: block;
+  margin-top: 30%;
+  width: 15.5%; height: 53px;
+  transform:rotate(7deg);
+  -ms-transform:rotate(90deg); /* IE 9 */
+  -moz-transform:r1otate(90deg); /* Firefox */
+  -webkit-transform:rotate(90deg); /* Safari and Chrome */
+  -o-transform:rotate(90deg); /* O" onclick="getSelectedTextToo()
+">Dictionary</button>
+
+
+</div>
+
+
+<div id="overlay" style="bottom: 0px; left: -1px; position: absolute; background-color: rgba(255,255,255,0.7); width: 100%; height: 110px; z-index: -200; display: none;">
+
+</div>
+<div id="Options" style="margin-left: 0.3rem; margin-top: -3rem; ">
+<center>
+	<tr>
+		
+		<td><button type="button" style="font-size: 1.5rem; font-family:Arial; margin-left: 67px; float: left;" onclick="clearText()">New File</button></td>
+		<td><button type="button" style="font-size: 1.5rem; font-family:Arial; margin-left: 17px; float: left;" onclick="loadFileAsText()">Load File</button></td>
+                <td><button type="button" style="font-size: 1.5rem; font-family:Arial; margin-right: -4.7rem; float: right;" onclick="saveTextAsFile()">Save!</button></td>
+	</tr>
+	<tr top:20px;>
+		<td><input type="file" style="font-size: 1.5rem; font-family:Arial; float: left; margin-left: 1rem; margin-right:-145px;" id="fileToLoad">
+</td>
+<div id="Options2" style="font-family:Arial; margin-left: 0.3rem; margin-top: -3rem; display: none;">
+
+ <button type="button" style=" font-size:2rem; padding-left: 15px; padding-right: 15px; font-family:Arial; margin-right: -4.7rem; float: right;" onclick="Scroll()" id="NoWay">Wallpaper 1</button>
+  
+  <button type="button" style=" font-size:2rem; padding-left: 15px; padding-right: 15px; font-family:Arial; margin-right: -4.0rem; float: right;display: none;" onclick="Scroll2()" id="Yes">Scrolling: Yes</button>
+
+<!--  
+<button type="button" style=" font-size:2rem; padding-left: 15px; padding-right: 15px; font-family:Arial; margin-right: -4.0rem; float: right;"     onclick="SaveSett()">Save Settings</button>
+-->
+ <td>
+
+<select onchange="backgroundRGB()";  style="font-size:2rem; margin-top:2px; margin-right: 1.3rem; float: right;" name="lomenop" id="BG-COLOR">
+
+    <option value="1"; onfocus="white" style="font-family:Arial; background-color: white;" >White</option>  
+    <option value="2"; onfocus="Gray" style="font-family:Arial; background-color: gray;" >Gray</option>    
+    <option value="3"; onfocus="Silver" style="font-family:Arial; background-color: silver;" >Silver</option>
+    <option value="4"; onfocus="Black" style="font-family:Arial; background-color: black;">Black</option>  
+    <option value="5";  onfocus="Olive"; style="font-family:Arial; background-color: olive;" >Olive</option>
+    <option value="6";  onfocus="Green"; style="font-family:Arial; background-color: green;" >Green</option>
+    <option value="7"; onfocus="Purple" style="font-family:Arial; background-color: purple;" >Purple</option>
+    <option value="8"; onfocus="Fuchsia" style="font-family:Arial; background-color: fuchsia;" >Fuchsia</option>
+    <option value="9"; onfocus="Lime" style="font-family:Arial; background-color: lime;" >Lime</option>
+    <option value="10"; onfocus="Teal" style="font-family:Arial; background-color: teal;" >Teal</option>
+    <option value="11"; onfocus="Aqua" style="font-family:Arial; background-color: aqua;" >Aqua</option>
+    <option value="12"; onfocus="Blue" style="font-family:Arial; background-color: blue;" >Blue</option>
+    <option value="13"; onfocus="Navy" style="font-family:Arial; background-color: navy;" >Navy</option>
+    <option value="14";  onfocus="Maroon"; style="font-family:Arial; background-color: maroon;" >Maroon</option>	
+    <option value="15";  onfocus="Red"; style="font-family:Arial; background-color: red;" >Red</option>	
+    <option value="16";  onfocus="Orange"; style="font-family:Arial; background-color: orange;" >Orange</option>	
+    <option value="17";  onfocus="Yellow"; style="font-family:Arial; background-color: yellow;" >Yellow</option>	
+</select>
+
+  <label for="BackScheme" style="font-size:2rem; margin-top:2px; margin-right: 1.1rem; float:right;">Background Color:</label>
+
+
+<select onchange="selectionRGB()";  style="font-size:2rem; margin-top:2px; margin-right: 1.0rem; float: right;" name="bcd" id="FG-COLOR">
+
+    <option value="1"; onfocus="Black" style="font-family:Arial; color: black;" >Black</option>  
+    <option value="2"; onfocus="Gray" style="font-family:Arial; color: gray;" >Gray</option>    
+    <option value="3"; onfocus="Silver" style="font-family:Arial; color: silver;" >Silver</option>
+    <option value="4"; onfocus="White" style="font-family:Arial; color: white;">White</option>  
+    <option value="5";  onfocus="Olive"; style="font-family:Arial;" >Olive</option>
+    <option value="6";  onfocus="Green"; style="font-family:Arial; color: green;" >Green</option>
+    <option value="7"; onfocus="Purple" style="font-family:Arial; color: purple;" >Purple</option>
+    <option value="8"; onfocus="Fuchsia" style="font-family:Arial; color: fuchsia;" >Fuchsia</option>
+    <option value="9"; onfocus="Lime" style="font-family:Arial; color: lime;" >Lime</option>
+    <option value="10"; onfocus="Teal" style="font-family:Arial; color: teal;" >Teal</option>
+    <option value="11"; onfocus="Aqua" style="font-family:Arial; color: aqua;" >Aqua</option>
+    <option value="12"; onfocus="Blue" style="font-family:Arial; color: blue;" >Blue</option>
+    <option value="13"; onfocus="Navy" style="font-family:Arial; color: navy;" >Navy</option>
+    <option value="14";  onfocus="Maroon"; style="font-family:Arial; color: maroon;" >Maroon</option>	
+    <option value="15";  onfocus="Red"; style="font-family:Arial; color: red;" >Red</option>	
+    <option value="16";  onfocus="Orange"; style="font-family:Arial; color: orange;" >Orange</option>	
+    <option value="17";  onfocus="Yellow"; style="font-family:Arial; color: yellow;" >Yellow</option>	
+</select>
+    <label for="FontColor" style="font-size:2rem; margin-top:2px; margin-right: 1.1rem; float:right;">Font Color:</label>
+
+    <button type="button" style=" font-size:2rem; padding-left: 15px; padding-right: 15px; font-family:Arial; margin-left: 67px; float: left;" onclick="Reset()" id="No">Reset</button>
+
+    <label for="SchemeColor" style="font-size:2rem; margin-top:2px; margin-left: 1.0rem; float: left;">Color Scheme:</label>
+
+    <select onchange="SchemeRGB()";  style="font-size:2rem; margin-top:2px; margin-left: 1.0rem; float: left;" name="iskima" id="scma">
+
+    <option value="1"; onfocus="White on Black" style="font-family:Arial; background-color: white; color: black" >White on Black</option>  
+    <option value="2"; onfocus="Black on White" style="font-family:Arial; background-color: black; color: white" >Black on White</option>    
+    <option value="3"; onfocus="Red on Black" style="font-family:Arial; background-color: black; color: red" >Red on Black</option>
+    <option value="4"; onfocus="Green on Black" style="font-family:Arial; background-color: black; color: green;">Green on Black</option>  
+    <option value="5";  onfocus="Yellow on Black"; style="font-family:Arial; background-color: black; color: yellow;" >Yellow on Black</option>
+    <option value="6";  onfocus="Gray on Blue"; style="font-family:Arial; background-color: navy; color: gray;" >Gray on Blue</option>
+    <option value="7"; onfocus="Blue on Gray" style="font-family:Arial; background-color: gray; color: navy;" >Blue on Gray</option>
+    <option value="8"; onfocus="Yellow on Gray" style="font-family:Arial; background-color: gray; color: yellow;" >Yellow on Gray</option>
+    <option value="9"; onfocus="Yellow on Blue" style="font-family:Arial; background-color: navy; color: yellow;" >Yellow on Blue</option>
+    <option value="10"; onfocus=" Blue on Yellow" style="font-family:Arial; background-color: yellow; color: navy;" >Blue on Yellow</option>
+    <option value="11";  onfocus="Black on Yellow"; style="font-family:Arial; background-color: black; color: yellow;" >Black on Yellow</option>
+    <option value="12"; onfocus="Red on Blue" style="font-family:Arial; background-color: navy; color: red" >Red on Blue</option>
+    <option value="13"; onfocus="Blue on Red" style="font-family:Arial; background-color: red; color: navy;" >Blue on Red</option>
+    <option value="14"; onfocus="Custom" style="font-family:Arial;" >Custom</option>
+</select>
+
+</td>
+
+<button type="button" style="position: absolute; font-size:2rem; padding-left: 15px; padding-right: 15px; font-family:Arial; right: 23px; float: right; vertical-align: middle" onclick="Toggle()">˄</button></td>
+
+
+
+
+<script>
+function justify () {
+var x = document.getElementById("TXT-JST").selectedIndex;
+var y = document.getElementById("TXT-JST").options;
+document.getElementById("content").style.textAlign = ( y[x].text);
+}
+</script>
+
+<script>
+function bolden () {
+var x = document.getElementById("TXT-BLD").selectedIndex;
+var y = document.getElementById("TXT-BLD").options;
+document.getElementById("content").style.fontWeight= ( y[x].text);
+}
+</script>
+
+<script>
+function sizing () {
+var x = document.getElementById("TXT-SZE").selectedIndex;
+var y = document.getElementById("TXT-SZE").options;
+document.getElementById("content").style.fontSize = ( y[x].text);
+}
+</script>
+
+<script>
+function selection () {
+var x = document.getElementById("FNT-TYP").selectedIndex;
+var y = document.getElementById("FNT-TYP").options;
+document.getElementById("content").style.fontFamily = ( y[x].text);
+document.getElementById("title").style.fontFamily = ( y[x].text);
+
+var weight = ( y[x].text);
+
+if (y[x].value == 13) {
+document.getElementById("content").style.fontWeight = '100';
+document.getElementById("title").style.fontWeight = '100';
+document.getElementById("content").style.fontFamily = 'Ubuntu';
+document.getElementById("title").style.fontFamily = 'Ubuntu';
+}
+else if (y[x].value == 14) {
+document.getElementById("content").style.fontWeight = '400';
+document.getElementById("title").style.fontWeight = '400';
+document.getElementById("content").style.fontFamily = 'Ubuntu';
+document.getElementById("title").style.fontFamily = 'Ubuntu';
+}
+else if (y[x].value == 15) {
+document.getElementById("content").style.fontWeight = '500';
+document.getElementById("title").style.fontWeight = '500';
+document.getElementById("content").style.fontFamily = 'Ubuntu';
+document.getElementById("title").style.fontFamily = 'Ubuntu';
+}
+else if (y[x].value == 16) {
+document.getElementById("content").style.fontWeight = '900';
+document.getElementById("title").style.fontWeight = '900';
+document.getElementById("content").style.fontFamily = 'Ubuntu';
+document.getElementById("title").style.fontFamily = 'Ubuntu';
+}
+}
+</script>
+<script>
+
+
+
+function sleep_ms() {
+    var initiation = new Date().getTime();
+    while ((new Date().getTime() - initiation) < millisecs);
+}
+var numb = 1;
+
+
+<script type="text/javascript">
+var observe;
+if (window.attachEvent) {
+    observe = function (element, event, handler) {
+        element.attachEvent('on'+event, handler);
+    };
+}
+else {
+    observe = function (element, event, handler) {
+        element.addEventListener(event, handler, false);
+    };
+}
+function init () {
+    var text = document.getElementById('text');
+    function resize () {
+        text.style.height = 'auto';
+        text.style.height = text.scrollHeight+'px';
+    }
+    /* 0-timeout to get the already changed text */
+    function delayedResize () {
+        window.setTimeout(resize, 0);
+    }
+    observe(text, 'change',  resize);
+    observe(text, 'cut',     delayedResize);
+    observe(text, 'paste',   delayedResize);
+    observe(text, 'drop',    delayedResize);
+    observe(text, 'keydown', delayedResize);
+    observe(text, 'onload', delayedResize);
+
+    text.focus();
+    text.select();
+    resize();
+    window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight);
+}
+</script>
+
+<script>
+function conit() {
+var txt;
+var r = confirm("Are you sure  ?");
+if (r == true) {
+   loadFileAsText();
+} else {
+    txt = "You pressed Cancel!";
+}
+</script>
+
+<script>
+function clearText()
+{
+var result = confirm("Create a new document? (Note: Any unsaved info will be lost!)");
+if (result) {
+     document.getElementById("content").value = "";
+     document.getElementById("title").value = "";
+}
+}
+</script>
+
+<script>
+function loadFileAsText()
+{
+var result = confirm("Load a document? (Note: Any unsaved inormation will be lost!)");
+if (result) {
+	var fileToLoad = document.getElementById("fileToLoad").files[0];
+
+	var fileReader = new FileReader();
+	fileReader.onload = function(fileLoadedEvent) 
+	{
+		var textFromFileLoaded = fileLoadedEvent.target.result;
+		
+	                  document.getElementById("content").value = textFromFileLoaded;
+		var fileInput = document.getElementById("fileToLoad");   
+		var filename = fileInput.files[0].name;
+		var noextension = filename.match(/^.*?([^\\/.]*)[^\\/]*$/)[1];
+		document.getElementById("title").value = noextension;
+		document.title = document.getElementById("title").value;
+		var textarea = document.getElementById("content");
+		var textValue=textarea.value;
+		var Settings ="####################################\n# Document settings, Donot modify! #\n####################################";
+if (textValue.indexOf(Settings) != -1)
+{
+alert ("Settings in file found, loading...");
+var temp = textValue.split("\n");
+
+
+var hilo3 = temp[temp.length - 8];
+var abbs3 = temp[temp.length - 7];
+var hi3 = temp[temp.length - 6];
+var hiya3 = temp[temp.length - 5];
+var hey3 = temp[temp.length - 4];
+var hola3 = temp[temp.length - 3];
+var scma3 = temp[temp.length -2];
+
+var hilo2 = hilo3.charAt(0);
+var abbs2 = abbs3.charAt(0);
+var hi2 = hi3.charAt(0);
+var hiya2 = hiya3.charAt(0);
+var hey2 = hey3.charAt(0);
+var hola2 = hola3.charAt(0);
+var scma2 = scma3.charAt(0);
+
+
+
+document.getElementById("FG-COLOR").value = hilo2;
+document.getElementById("BG-COLOR").value = abbs2;
+document.getElementById("FNT-TYP").value = hi2;
+document.getElementById("TXT-SZE").value = hiya2;
+document.getElementById("TXT-JST").value = hey2;
+document.getElementById("TXT-BLD").value = hola2;
+document.getElementById("scma").value = scma2;
+
+
+var elem = document.getElementById('content');
+var val  = elem.value.split(/(\r\n|\n|\r)/g).filter(function(n){return n.trim()});
+
+    console.log(val)
+    
+var i;
+for (i = 0; i < 10; i++) { 
+    val.pop();
+}
+
+
+    
+    elem.value = val.join('\r\n');
+
+
+sizing();
+bolden();
+selection();
+justify();
+backgroundRGB();
+selectionRGB();
+
+}
+
+else
+{
+alert("No settings found in file...");
+}
+	};
+
+
+	fileReader.readAsText(fileToLoad, "UTF-8");
+}
+
+}
+</script>
+
+<script>
+function saveTextAsFile()
+{
+if (!document.getElementById("title").value)
+{
+    var result = confirm("Document title is empty, Are sure you want to save?)");
+if (result) {
+var originalText = document.getElementById("content").value;
+var line1 = "####################################";
+var line2 = "# Document settings, Donot modify! #";
+var line3 = "####################################";
+var breaks ="\n";
+
+
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += line1;
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += line2;
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += line3;
+document.getElementById("content").value += breaks;
+
+document.getElementById("content").value += breaks;
+
+
+document.getElementById("content").value += document.getElementById("FG-COLOR").value;
+document.getElementById("content").value += breaks
+document.getElementById("content").value += document.getElementById("BG-COLOR").value;
+document.getElementById("content").value += breaks
+document.getElementById("content").value += document.getElementById("FNT-TYP").value;
+document.getElementById("content").value += breaks
+document.getElementById("content").value += document.getElementById("TXT-SZE").value;
+document.getElementById("content").value += breaks
+document.getElementById("content").value += document.getElementById("TXT-JST").value;
+document.getElementById("content").value += breaks
+document.getElementById("content").value += document.getElementById("TXT-BLD").value;
+document.getElementById("content").value += breaks
+document.getElementById("content").value += document.getElementById("scma").value;
+document.getElementById("content").value += breaks
+
+                  var textToWrite = document.getElementById("content").value;
+                  textToWrite = textToWrite.replace(/\n/g, "\r\n");
+	var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+	var fileNameToSaveAs = document.getElementById("title").value;
+	var downloadLink = document.createElement("a");
+	downloadLink.download = fileNameToSaveAs;
+	downloadLink.innerHTML = "Download File";
+	if (window.webkitURL != null)
+	{
+		// Chrome allows the link to be clicked
+		// without actually adding it to the DOM.
+		downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+	document.getElementById("content").value = originalText;
+	}
+	else
+	{
+	var originalText = document.getElementById("content").value;
+var line1 = "####################################";
+var line2 = "# Document settings, Donot modify! #";
+var line3 = "####################################";
+var breaks ="\n";
+
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += line1;
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += line2;
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += line3;
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += breaks;
+
+document.getElementById("content").value += document.getElementById("FG-COLOR").value;
+document.getElementById("content").value += breaks
+document.getElementById("content").value += document.getElementById("BG-COLOR").value;
+document.getElementById("content").value += breaks
+document.getElementById("content").value += document.getElementById("FNT-TYP").value;
+document.getElementById("content").value += breaks
+document.getElementById("content").value += document.getElementById("TXT-SZE").value;
+document.getElementById("content").value += breaks
+document.getElementById("content").value += document.getElementById("TXT-JST").value;
+document.getElementById("content").value += breaks
+document.getElementById("content").value += document.getElementById("TXT-BLD").value;
+document.getElementById("content").value += breaks
+document.getElementById("content").value += document.getElementById("scma").value;
+document.getElementById("content").value += breaks
+
+		// Firefox requires the link to be added to the DOM
+		// before it can be clicked.
+		downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+		downloadLink.onclick = destroyClickedElement;
+		downloadLink.style.display = "none";
+		document.body.appendChild(downloadLink);
+	}
+
+	downloadLink.click();
+}
+
+function destroyClickedElement(event)
+{
+	document.body.removeChild(event.target);
+}
+}
+
+else if (!document.getElementById("content").value)
+{
+    var result = confirm("Document body is empty, Are sure you want to save?)");
+if (result) {
+
+var originalText = document.getElementById("content").value;
+var line1 = "####################################";
+var line2 = "# Document settings, Donot modify! #";
+var line3 = "####################################";
+var line4 = "\n####################################";
+var breaks ="\n";
+
+
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += line1;
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += line2;
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += line3;
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += breaks;
+
+
+
+document.getElementById("content").value += document.getElementById("FG-COLOR").value;
+document.getElementById("content").value += breaks
+document.getElementById("content").value += document.getElementById("BG-COLOR").value;
+document.getElementById("content").value += breaks
+document.getElementById("content").value += document.getElementById("FNT-TYP").value;
+document.getElementById("content").value += breaks
+document.getElementById("content").value += document.getElementById("TXT-SZE").value;
+document.getElementById("content").value += breaks
+document.getElementById("content").value += document.getElementById("TXT-JST").value;
+document.getElementById("content").value += breaks
+document.getElementById("content").value += document.getElementById("TXT-BLD").value;
+document.getElementById("content").value += breaks
+document.getElementById("content").value += document.getElementById("scma").value;
+document.getElementById("content").value += breaks
+
+
+ var textToWrite = document.getElementById("content").value;
+textToWrite = textToWrite.replace(/\n/g, "\r\n");
+	var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+	var fileNameToSaveAs = document.getElementById("title").value;
+
+	var downloadLink = document.createElement("a");
+	downloadLink.download = fileNameToSaveAs;
+	downloadLink.innerHTML = "Download File";
+	if (window.webkitURL != null)
+	{
+		// Chrome allows the link to be clicked
+		// without actually adding it to the DOM.
+		downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+		document.getElementById("content").value = originalText;
+	}
+	else
+	{
+		// Firefox requires the link to be added to the DOM
+		// before it can be clicked.
+		downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+		downloadLink.onclick = destroyClickedElement;
+		downloadLink.style.display = "none";
+		document.body.appendChild(downloadLink);
+	}
+
+	downloadLink.click();
+}
+
+function destroyClickedElement(event)
+{
+	document.body.removeChild(event.target);
+}
+}
+else
+{
+
+var originalText = document.getElementById("content").value;
+var line1 = "####################################";
+var line2 = "# Document settings, Donot modify! #";
+var line3 = "####################################";
+var breaks ="\n";
+
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += line1;
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += line2;
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += line3;
+document.getElementById("content").value += breaks;
+document.getElementById("content").value += breaks;
+
+document.getElementById("content").value += document.getElementById("FG-COLOR").value;
+document.getElementById("content").value += breaks
+document.getElementById("content").value += document.getElementById("BG-COLOR").value;
+document.getElementById("content").value += breaks
+document.getElementById("content").value += document.getElementById("FNT-TYP").value;
+document.getElementById("content").value += breaks
+document.getElementById("content").value += document.getElementById("TXT-SZE").value;
+document.getElementById("content").value += breaks
+document.getElementById("content").value += document.getElementById("TXT-JST").value;
+document.getElementById("content").value += breaks
+document.getElementById("content").value += document.getElementById("TXT-BLD").value;
+document.getElementById("content").value += breaks
+document.getElementById("content").value += document.getElementById("scma").value;
+document.getElementById("content").value += breaks
+
+	var textToWrite = document.getElementById("content").value;
+	textToWrite = textToWrite.replace(/\n/g, "\r\n");
+	var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+	var fileNameToSaveAs = document.getElementById("title").value;
+
+	var downloadLink = document.createElement("a");
+	downloadLink.download = fileNameToSaveAs;
+	downloadLink.innerHTML = "Download File";
+	if (window.webkitURL != null)
+	{
+		// Chrome allows the link to be clicked
+		// without actually adding it to the DOM.
+		downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+		document.getElementById("content").value = originalText;
+	}
+	else
+	{
+		// Firefox requires the link to be added to the DOM
+		// before it can be clicked.
+		downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+		downloadLink.onclick = destroyClickedElement;
+		downloadLink.style.display = "none";
+		document.body.appendChild(downloadLink);
+	}
+
+	downloadLink.click();
+}
+
+function destroyClickedElement(event)
+{
+	document.body.removeChild(event.target);
+}
+
+function imageX()
+{
+var t=setInterval(Scroll,1000); 
+}
+
+}
+</script>
+
+ <script type="text/javascript">
+              function getSelectedText() 
+               {
+                 var txtArea = document.getElementById("content");
+                 var selectedText;   
+                 if (txtArea.selectionStart != undefined)
+                   {    
+                       var startPosition = txtArea.selectionStart;
+                       var endPosition = txtArea.selectionEnd;
+                       selectedText = txtArea.value.substring(startPosition, endPosition);
+                    }
+                 alert("Searching for a Synonym for: " + selectedText);
+                 
+		 document.getElementById("thesaurus").src =
+                 "https://www.thesaurus.com/browse/"+ selectedText;
+		 document.getElementById("thesaurus").scrollTop = 550;
+
+		 var x = document.getElementById("thesaurus");
+	         x.style.display = "block";
+
+		 var y = document.getElementById("CloseT");
+	         y.style.display = "block";
+
+		 var z = document.getElementById("overlayz");
+	         z.style.display = "block";
+
+                 }
+function closeT() 
+                 {
+		 var x = document.getElementById("thesaurus");
+	         x.style.display = "none";
+
+		 var y = document.getElementById("CloseT");
+	         y.style.display = "none";	
+
+		 var z = document.getElementById("overlayz");
+	         z.style.display = "none";	
+
+		 }
+         </script>
+
+ <script type="text/javascript">
+              function getSelectedTextToo() 
+               {
+                 var txtArea = document.getElementById("content");
+                 var selectedText;   
+                 if (txtArea.selectionStart != undefined)
+                   {    
+                       var startPosition = txtArea.selectionStart;
+                       var endPosition = txtArea.selectionEnd;
+                       selectedText = txtArea.value.substring(startPosition, endPosition);
+                    }
+                 alert("Searching for the meaning of: " + selectedText);
+                 
+		 document.getElementById("dictionary").src =
+                 "https://www.dictionary.com/browse/"+ selectedText;
+		 document.getElementById("dictionary").scrollTop = 550;
+
+		 var a = document.getElementById("dictionary");
+	         a.style.display = "block";
+
+		 var b = document.getElementById("CloseD");
+	         b.style.display = "block";
+
+		 var c = document.getElementById("overlayzee");
+	         c.style.display = "block";
+                 }
+function closeD()
+                 {
+		 var a = document.getElementById("dictionary");
+	         a.style.display = "none";
+
+		 var b = document.getElementById("CloseD");
+	         b.style.display = "none";	
+
+		 var c = document.getElementById("overlayzee");
+	         c.style.display = "none";	
+		 }
+         </script>
+
+
+ <script type="text/javascript">
+
+setInterval(function(){ var text = document.getElementById("content").value;
+
+var wc = (text.split(/\W+/).length);
+
+var lc = (text.split(/\r\n|\r|\n/).length);
+
+var cc = text;
+
+var withoutSpace = text.replace(/ /g,"");
+var text = withoutSpace.length;
+
+
+cc.replace(/[\n\r]+/g, '');
+
+cc.replace(/\s{2,10}/g, ' ');
+
+len = cc.length;
+
+let now = new Date();
+
+var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+
+var MyDate = new Date();
+var MyDateString;
+
+MyDate.setDate(MyDate.getDate() + 20);
+
+MyDateString = ('0' + MyDate.getDate()).slice(-2) + '/'
+             + ('0' + (MyDate.getMonth())).slice(-2) + '/'
+             + MyDate.getFullYear();
+
+
+var MyDateToo = new Date();
+var MyDateStringToo;
+
+MyDateToo.setDate(MyDateToo.getDate() + 20);
+
+MyDateStringToo = ('0' + MyDateToo.getHours()).slice(-2) + ':'
+             + ('0' + (MyDateToo.getMinutes()+1)).slice(-2);
+
+
+
+document.getElementById("DocInfo").innerHTML = "Word Count: " + wc + "     Character Count: " + len + "     Time: " + MyDateStringToo + "     " + days[now.getDay()] + "     " + "Date: " + MyDateString;
+ }, 10000);
+
+         </script>
+
